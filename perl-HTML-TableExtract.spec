@@ -4,7 +4,7 @@
 #
 Name     : perl-HTML-TableExtract
 Version  : 2.15
-Release  : 8
+Release  : 9
 URL      : https://cpan.metacpan.org/authors/id/M/MS/MSISK/HTML-TableExtract-2.15.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/M/MS/MSISK/HTML-TableExtract-2.15.tar.gz
 Source1  : http://http.debian.net/debian/pool/main/libh/libhtml-tableextract-perl/libhtml-tableextract-perl_2.15-1.debian.tar.xz
@@ -43,7 +43,7 @@ license components for the perl-HTML-TableExtract package.
 cd ..
 %setup -q -T -D -n HTML-TableExtract-2.15 -b 1
 mkdir -p deblicense/
-mv %{_topdir}/BUILD/debian/* %{_topdir}/BUILD/HTML-TableExtract-2.15/deblicense/
+cp -r %{_topdir}/BUILD/debian/* %{_topdir}/BUILD/HTML-TableExtract-2.15/deblicense/
 
 %build
 export http_proxy=http://127.0.0.1:9/
