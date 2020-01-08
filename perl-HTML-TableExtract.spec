@@ -4,14 +4,15 @@
 #
 Name     : perl-HTML-TableExtract
 Version  : 2.15
-Release  : 12
+Release  : 13
 URL      : https://cpan.metacpan.org/authors/id/M/MS/MSISK/HTML-TableExtract-2.15.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/M/MS/MSISK/HTML-TableExtract-2.15.tar.gz
 Source1  : http://http.debian.net/debian/pool/main/libh/libhtml-tableextract-perl/libhtml-tableextract-perl_2.15-1.debian.tar.xz
 Summary  : unknown
 Group    : Development/Tools
-License  : GPL-1.0
+License  : Artistic-1.0 GPL-1.0
 Requires: perl-HTML-TableExtract-license = %{version}-%{release}
+Requires: perl-HTML-TableExtract-perl = %{version}-%{release}
 BuildRequires : buildreq-cpan
 BuildRequires : perl(HTML::Parser)
 
@@ -25,6 +26,7 @@ information contained in tables within HTML documents.
 Summary: dev components for the perl-HTML-TableExtract package.
 Group: Development
 Provides: perl-HTML-TableExtract-devel = %{version}-%{release}
+Requires: perl-HTML-TableExtract = %{version}-%{release}
 
 %description dev
 dev components for the perl-HTML-TableExtract package.
@@ -38,18 +40,28 @@ Group: Default
 license components for the perl-HTML-TableExtract package.
 
 
+%package perl
+Summary: perl components for the perl-HTML-TableExtract package.
+Group: Default
+Requires: perl-HTML-TableExtract = %{version}-%{release}
+
+%description perl
+perl components for the perl-HTML-TableExtract package.
+
+
 %prep
 %setup -q -n HTML-TableExtract-2.15
-cd ..
-%setup -q -T -D -n HTML-TableExtract-2.15 -b 1
+cd %{_builddir}
+tar xf %{_sourcedir}/libhtml-tableextract-perl_2.15-1.debian.tar.xz
+cd %{_builddir}/HTML-TableExtract-2.15
 mkdir -p deblicense/
-cp -r %{_topdir}/BUILD/debian/* %{_topdir}/BUILD/HTML-TableExtract-2.15/deblicense/
+cp -r %{_builddir}/debian/* %{_builddir}/HTML-TableExtract-2.15/deblicense/
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
+export LANG=C.UTF-8
 if test -f Makefile.PL; then
 %{__perl} Makefile.PL
 make  %{?_smp_mflags}
@@ -59,7 +71,7 @@ else
 fi
 
 %check
-export LANG=C
+export LANG=C.UTF-8
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
@@ -68,7 +80,8 @@ make TEST_VERBOSE=1 test
 %install
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/perl-HTML-TableExtract
-cp LICENSE %{buildroot}/usr/share/package-licenses/perl-HTML-TableExtract/LICENSE
+cp %{_builddir}/HTML-TableExtract-2.15/LICENSE %{buildroot}/usr/share/package-licenses/perl-HTML-TableExtract/2947c073e37b38625d34a6a565e480dd8033dc0f
+cp %{_builddir}/HTML-TableExtract-2.15/deblicense/copyright %{buildroot}/usr/share/package-licenses/perl-HTML-TableExtract/1c66780e3211e50f3f4019ede6760ba3fa55c006
 if test -f Makefile.PL; then
 make pure_install PERL_INSTALL_ROOT=%{buildroot} INSTALLDIRS=vendor
 else
@@ -81,7 +94,6 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 
 %files
 %defattr(-,root,root,-)
-/usr/lib/perl5/vendor_perl/5.28.2/HTML/TableExtract.pm
 
 %files dev
 %defattr(-,root,root,-)
@@ -89,4 +101,9 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 
 %files license
 %defattr(0644,root,root,0755)
-/usr/share/package-licenses/perl-HTML-TableExtract/LICENSE
+/usr/share/package-licenses/perl-HTML-TableExtract/1c66780e3211e50f3f4019ede6760ba3fa55c006
+/usr/share/package-licenses/perl-HTML-TableExtract/2947c073e37b38625d34a6a565e480dd8033dc0f
+
+%files perl
+%defattr(-,root,root,-)
+/usr/lib/perl5/vendor_perl/5.30.1/HTML/TableExtract.pm
