@@ -4,7 +4,7 @@
 #
 Name     : perl-HTML-TableExtract
 Version  : 2.15
-Release  : 16
+Release  : 17
 URL      : https://cpan.metacpan.org/authors/id/M/MS/MSISK/HTML-TableExtract-2.15.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/M/MS/MSISK/HTML-TableExtract-2.15.tar.gz
 Source1  : http://http.debian.net/debian/pool/main/libh/libhtml-tableextract-perl/libhtml-tableextract-perl_2.15-1.debian.tar.xz
